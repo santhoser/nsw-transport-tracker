@@ -41,7 +41,7 @@ function LegBlock({ leg }: { leg: Leg }) {
 
 export default function JourneyDetail() {
   const { journey, trip } = useSelected();
-  const trackLeg = useMemo(() => journey?.legs.find((l) => !l.isWalk && l.mode && MODES[l.mode].vehicleFeed), [journey]);
+  const trackLeg = useMemo(() => journey?.legs.find((l) => !l.isWalk && l.mode && MODES[l.mode].vehicleFeeds.length), [journey]);
   const live = useQuery({
     queryKey: ['vehicles', trackLeg?.mode],
     enabled: !!trackLeg?.mode,

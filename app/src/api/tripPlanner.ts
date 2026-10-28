@@ -15,7 +15,7 @@ export function parseLocations(raw: any, mode?: ModeId): Place[] {
       const classes: number[] = l.modes ?? [];
       if (classes.length && !classes.some((c) => MODES[mode].classes.includes(c))) continue;
     }
-    out.push({ id: String(l.id), name: l.disassembledName && l.parent?.name ? `${l.disassembledName}, ${l.parent.name}` : String(l.name), lat: l.coord?.[0], lon: l.coord?.[1] });
+    out.push({ id: String(l.id), name: String(l.name), lat: l.coord?.[0], lon: l.coord?.[1] });
   }
   return out;
 }

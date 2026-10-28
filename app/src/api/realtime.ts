@@ -22,9 +22,8 @@ export function decodeVehicles(bytes: Uint8Array): Vehicle[] {
 }
 
 export async function fetchVehicles(mode: ModeId): Promise<Vehicle[]> {
-  const feed = MODES[mode].vehicleFeed;
-  if (!feed) return [];
-  return decodeVehicles(await getBytes(feed));
+  const results = await Promise.allSettled(MODES[mode].vehicleFeeds.map(async (f) => decodeVehicles(await getBytes(f))));
+  return results.flatMap((r) => (r.status === 'fulfilled' ? r.value : []));
 }
 
 /** Prefer exact trip id; fall back to matching trip id as a suffix/prefix (feeds differ in id decoration). */

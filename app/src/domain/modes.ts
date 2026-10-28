@@ -8,16 +8,16 @@ export interface ModeInfo {
   color: string;
   icon: string; // Ionicons / MaterialCommunityIcons name
   placeLabel: 'station' | 'stop' | 'wharf';
-  /** GTFS-RT vehicle position feed path (null when unsupported) */
-  vehicleFeed: string | null;
+  /** GTFS-RT vehicle position feed paths (empty when unsupported) */
+  vehicleFeeds: string[];
 }
 
 export const MODES: Record<ModeId, ModeInfo> = {
-  train: { id: 'train', label: 'Train', classes: [1], color: '#f99d1c', icon: 'train', placeLabel: 'station', vehicleFeed: 'v2/gtfs/vehiclepos/sydneytrains' },
-  metro: { id: 'metro', label: 'Metro', classes: [2], color: '#168388', icon: 'subway-variant', placeLabel: 'station', vehicleFeed: 'v2/gtfs/vehiclepos/metro' },
-  lightrail: { id: 'lightrail', label: 'Light Rail', classes: [4], color: '#be1622', icon: 'tram', placeLabel: 'station', vehicleFeed: null },
-  bus: { id: 'bus', label: 'Bus', classes: [5, 7, 11], color: '#00b5ef', icon: 'bus', placeLabel: 'stop', vehicleFeed: 'v1/gtfs/vehiclepos/buses' },
-  ferry: { id: 'ferry', label: 'Ferry', classes: [9], color: '#5ab031', icon: 'ferry', placeLabel: 'wharf', vehicleFeed: 'v1/gtfs/vehiclepos/ferries/sydneyferries' },
+  train: { id: 'train', label: 'Train', classes: [1], color: '#f99d1c', icon: 'train', placeLabel: 'station', vehicleFeeds: ['v2/gtfs/vehiclepos/sydneytrains'] },
+  metro: { id: 'metro', label: 'Metro', classes: [2], color: '#168388', icon: 'subway-variant', placeLabel: 'station', vehicleFeeds: ['v2/gtfs/vehiclepos/metro'] },
+  lightrail: { id: 'lightrail', label: 'Light Rail', classes: [4], color: '#be1622', icon: 'tram', placeLabel: 'station', vehicleFeeds: ['v2/gtfs/vehiclepos/lightrail/innerwest', 'v1/gtfs/vehiclepos/lightrail/cbdandsoutheast', 'v1/gtfs/vehiclepos/lightrail/parramatta', 'v1/gtfs/vehiclepos/lightrail/newcastle'] },
+  bus: { id: 'bus', label: 'Bus', classes: [5, 7, 11], color: '#00b5ef', icon: 'bus', placeLabel: 'stop', vehicleFeeds: ['v1/gtfs/vehiclepos/buses'] },
+  ferry: { id: 'ferry', label: 'Ferry', classes: [9], color: '#5ab031', icon: 'ferry', placeLabel: 'wharf', vehicleFeeds: ['v1/gtfs/vehiclepos/ferries/sydneyferries'] },
 };
 
 export const MODE_ORDER: ModeId[] = ['train', 'metro', 'lightrail', 'bus', 'ferry'];

@@ -18,7 +18,12 @@ Limits (verify on the portal): about 5 requests/second and 60,000/day per key. P
 | Realtime trip updates / alerts (GTFS-RT) | `/v1/gtfs/realtime/...`, `/v2/gtfs/alerts/...` | later: delays, notifications |
 | Static timetables (GTFS zip) | `/v1/publictransport/timetables/complete/gtfs` | bus route list (script only) |
 
-Paths marked here come from documentation memory; confirm them in the portal's API explorer and update `src/domain/modes.ts` if they differ.
+Paths below were verified live (HTTP 200) on 2026-10-28, except where noted. Light rail has four feeds: `v2/gtfs/vehiclepos/lightrail/innerwest`, `v1/gtfs/vehiclepos/lightrail/{cbdandsoutheast,parramatta,newcastle}`; `fetchVehicles` merges them.
+
+Verified behaviour:
+- `stop_finder` returns streets, suburbs and POIs as well as stops; the app keeps only `type: "stop"` (`anyObjFilter_sf` is ignored). `coord` is `[lat, lon]`. `name` is the full display name.
+- `trip` leg `transportation.properties.RealtimeTripId` equals the train GTFS-RT `tripId` exactly (trips not yet running have no vehicle). Bus feed trip ids are numeric.
+- `gtfsTripId` does not match the realtime feeds.
 
 ## Trip Planner (rapidJSON)
 Common params: `outputFormat=rapidJSON&coordOutputFormat=EPSG:4326&version=10.2.1.42`.

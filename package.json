@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "unzipper": "^0.12.5"
+  }
+}
